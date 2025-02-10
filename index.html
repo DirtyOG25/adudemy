@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso - Inglés Total</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: "DM Sans", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-banner {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .navbar input {
+            flex: 1;
+            margin: 0 10px;
+            padding: 5px;
+        }
+
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .course-details, .course-content {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .course-sidebar {
+            flex: 0.3;
+            min-width: 250px;
+        }
+
+        .video-preview img {
+            width: 100%;
+            height: auto;
+        }
+
+        footer {
+            background-color: #6a1b9a;
+            color: white;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .course-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .course-sidebar {
+                width: 100%;
+                text-align: center;
+                order: -1;
+            }
+
+            footer {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-banner">
+        <p>Precios desde solo <strong>$2.99</strong> | Finaliza en <span id="countdown">8 horas.</span></p>
+    </header>
+
+    <nav class="navbar">
+        <img src="logo-udemy.svg" style="width: 100px;" />
+        <input type="text" placeholder="Buscar cualquier cosa" />
+        <div class="nav-links">
+            <a href="#">Udemy Business</a>
+        </div>
+    </nav>
+
+    <main class="course-container">
+        <aside class="course-sidebar">
+            <div class="video-preview">
+                <img src="vista.png" alt="Vista previa del curso" />
+                <p>Vista previa de este curso</p>
+            </div>
+            <p><strong>$2.99</strong> <del>$33.99</del></p>
+            <button id="cestaBtn">Añadir a la cesta</button>
+        </aside>
+
+        <section class="course-details">
+            <h2>Inglés Total - de Principiante a Avanzado/+ de 115 horas</h2>
+            <p>Aprende todo sobre el idioma inglés, fonética, gramática, vocabulario y más.</p>
+            <h3>Lo que aprenderás</h3>
+            <ul>
+                <li>Inglés básico, intermedio y avanzado</li>
+                <li>Fonética</li>
+                <li>Gramática</li>
+                <li>Correcta pronunciación</li>
+            </ul>
+        </section>
+
+        <section class="course-content">
+            <h3>Este curso incluye:</h3>
+            <ul>
+                <li>115 horas de vídeo bajo demanda</li>
+                <li>211 recursos descargables</li>
+                <li>Acceso en dispositivos móviles y TV</li>
+                <li>Certificado de finalización</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById("cestaBtn").addEventListener("click", function () {
+            window.location.href = "carga.html";
+        });
+    </script>
+
+    <footer>
+        <p>© 2025 Udemy. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="#">Términos de servicio</a>
+            <a href="#">Política de privacidad</a>
+            <a href="#">Contacto</a>
+        </div>
+    </footer>
+</body>
+</html>

